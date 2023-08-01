@@ -70,7 +70,7 @@ function App() {
         onClose={ closeAllPopups } />
       < PopupImageFull
         isOpen={ isPopupImageFullOpen }
-        onClose={ closeAllPopups}
+        onClose={ closeAllPopups }
         card={ selectedCard } />
       < PopupUsernameEdit 
         isOpen={ isPopupUsernameEditOpen }
