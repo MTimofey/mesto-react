@@ -1,0 +1,8 @@
+.popup__opened {
+  visibility: visible;
+  overflow-y: auto;
+  overflow-x: auto;
+  opacity: 1;
+  transition: all 1s ease 0s;
+  background-color: rgba(0, 0, 0, 0.5);
+}

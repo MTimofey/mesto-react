@@ -1,0 +1,14 @@
+.content {
+  position: relative;
+  max-width: 880px;
+  min-width: 282px;
+  min-height: 75vh;
+  margin: 0 auto 66px;
+}
+@media screen and (max-width:1279px) {
+  .content {
+    max-width: 1241px;
+    width: calc(100% - 2 * 19px);
+    margin: 0 auto 48px;
+  }
+}

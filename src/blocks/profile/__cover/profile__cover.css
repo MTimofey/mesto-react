@@ -1,0 +1,8 @@
+.profile__cover {
+  display: flex;
+}
+@media screen and (max-width: 1279px) {
+  .profile__cover {
+    flex-direction: column;
+  }
+}

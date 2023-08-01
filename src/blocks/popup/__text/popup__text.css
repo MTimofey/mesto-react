@@ -1,0 +1,17 @@
+.popup__text {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  margin: 0 auto 5px;
+  padding-bottom: 12px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
+}
+
+.popup__text:first-of-type {
+  margin-top: 26px;
+}
