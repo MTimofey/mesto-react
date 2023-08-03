@@ -1,19 +1,54 @@
 // импорт
-import React from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import PopupWithForm from './PopupWithForm';
+import CurrentUserContext from '../contexts/CurrentUserContext';
 
 // функция попапа редактирования профиля
 function PopupUserNameEdit(props) {
+
+  // константы с наполнением данных о пользователях и подписки
+  const userItem = useContext(CurrentUserContext);
+  const [ name, setName ] = useState('');
+  const [ description, setDescription ] = useState('');
+
+  // заполнение корректными данными формы
+  useEffect(() => {
+    setName(userItem.name ?? '');
+    setDescription(userItem.about ?? '');
+  }, [props.isOpened, userItem]);
+
+  // апдейт измененний после сабмита
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    props.onUpdateUser({
+      name: name,
+      about: description,
+    })
+  }
+
+  // изменение данных имени
+  const handleChangeUsername = (evt) => {
+    setName(evt.target.value);
+  }
+
+  // изменение данных описания
+  const handleChangeDescription = (evt) => {
+    setDescription(evt.target.value);
+  }
+
   return (
     <PopupWithForm
       isOpen={ props.isOpen } 
       onClose={ props.onClose }
+      onSubmit={ handleSubmit }
       id='usernamEdit'
       styleClass='username-edit'
       title='Редактировать профиль'
       name='contentProfileForm'
       buttonText='Сохранить'>
         <input 
+          value={ name }
+          onChange={ handleChangeUsername }
           id='popup__username'
           type='text'
           name='userName'
@@ -27,7 +62,9 @@ function PopupUserNameEdit(props) {
           id='error-popup__username'
           className='popup__error-message' >
         </span>
-        <input 
+        <input
+          value={ description }
+          onChange={ handleChangeDescription }
           id='popup__user-position'
           type='text'
           name='userPosition'

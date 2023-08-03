@@ -1,26 +1,11 @@
 // импорт
-import React, {useEffect, useState} from 'react';
-import api from '../utils/Api';
+import React, { useContext } from 'react';
+import CurrentUserContext from '../contexts/CurrentUserContext';
 import Card from './Card';
 
 // функция разметки в main
 function Main(props) {
-  const [ userName, setUserName ] = useState('');
-  const [ userDescription, setUserDescription ] = useState('');
-  const [ userAvatar, setUserAvatar ] = useState('');
-  const [ cards, setCards ] = useState([]);
-
-  useEffect(() => {
-    Promise.all([ api.getUserData(), api.getInitialCards() ])
-    .then(([  userItem, cardsData ]) => {
-      setUserName(userItem.name);
-      setUserDescription(userItem.about);
-      setUserAvatar(userItem.avatar);
-      setCards(cardsData);
-
-    })
-    .catch((err) => { console.log(`Ыыы, ошибка ${err}`) })
-  }, [])
+  const userData = useContext(CurrentUserContext);
 
   return(
     <main className="content">
@@ -29,7 +14,7 @@ function Main(props) {
           <div className="profile__avatar-area">
             <img
               className="profile__avatar"
-              src={ userAvatar }
+              src={ userData.avatar }
               alt="Аватар профиля" />
             <button
               type="button"
@@ -37,12 +22,12 @@ function Main(props) {
               onClick={ props.onEditAvatar}></button>
           </div>
           <div className="profile__info">
-            <h1 className="profile__title">{ userName }</h1>
+            <h1 className="profile__title">{ userData.name }</h1>
             <button
               type="button"
               className="profile__edit-button"
               onClick={ props.onEditProfile }></button>
-            <p className="profile__position">{ userDescription }</p>
+            <p className="profile__position">{ userData.about }</p>
           </div>
         </div>
         <button
@@ -51,7 +36,7 @@ function Main(props) {
           onClick={ props.onAddPlace }></button>
       </section>
       <section className="elements">
-        { cards.map((cardsItem) => (
+        { props.cards.map((cardsItem) => (
           <Card
             link={ cardsItem.link }
             name={ cardsItem.name }
@@ -59,6 +44,7 @@ function Main(props) {
             key={ cardsItem._id }
             onCardClick={ props.onCardClick }
             onCardDelete={ props.onCardDelete }
+            onCardLike={ props.onCardLike }
             card={ cardsItem } >
           </Card>
         ))}

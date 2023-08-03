@@ -38,11 +38,14 @@ class Api {
   }
 
   // Метод отправки данных пользователя
-  editCustomProfile(userProfileInfo) {
+  editUserProfile(userName, userAbout) {
     return fetch(`${this._link}/users/me`, {
       method: "PATCH",
       headers: this._headers,
-      body: JSON.stringify({ name: userProfileInfo['userName'], about: userProfileInfo['userPosition'] }),
+      body: JSON.stringify({ 
+        name: userName,
+        about: userAbout, 
+      }),
     })
     .then((res) => {
       return this._serverResponse(res);
@@ -50,14 +53,14 @@ class Api {
   }
 
   // Добавление новой карточки
-  addNewCard(cardData) {
+  addNewCard(photoName, link) {
     console.log(this._headers);
     return fetch(`${this._link}/cards`, {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify({ 
-        name: cardData['photoName'],
-        link: cardData['link'], 
+        name: photoName,
+        link: link, 
       }),
     })
     .then((res) => {
@@ -76,23 +79,22 @@ class Api {
   }
 
   // Лайк карточки
-  setCardLike(cardId) {
-    return fetch(`${this._link}/cards/${cardId}/likes`, {
-      method: "PUT",
-      headers: this._headers,
-    }).then((res) => {
-      return this._serverResponse(res);
-    });
-  }
-
-  // Удаление лайка
-  deleteCardLike(cardId) {
-    return fetch(`${this._link}/cards/${cardId}/likes`, {
-      method: "DELETE",
-      headers: this._headers,
-    }).then((res) => {
-      return this._serverResponse(res);
-    });
+  setCardLike(cardId, isLiked) {
+    if (isLiked) {
+      return fetch(`${this._link}/cards/${cardId}/likes`, {
+        method: "PUT",
+        headers: this._headers,
+      }).then((res) => {
+        return this._serverResponse(res);
+      });
+    } else {
+      return fetch(`${this._link}/cards/${cardId}/likes`, {
+        method: "DELETE",
+        headers: this._headers,
+      }).then((res) => {
+        return this._serverResponse(res);
+      });
+    }
   }
 
   // Аватар(короля) поля фотографии
