@@ -1,31 +1,40 @@
 // импорт
-import React, { useEffect, useRef } from 'react';
-import PopupWithForm from './EditPopupWithForm';
+import React, { useEffect, useState } from 'react';
+import EditPopupWithForm from './EditPopupWithForm';
 
 // функция попапа добавления карточки
-function PopupCardAdd(props) {
-
-  const cardName = useRef();
-  const cardLink = useRef();
+function AddPopupCard(props) {
+  const [ cardPlaceName, setCardPlaceName ] = useState('');
+  const [ cardPlaceLink, setCardPlaceLink ] = useState('');
 
   // эффект для очистки полей
-  useEffect( () => {
-    cardName.current.value = '';
-    cardLink.current.value = '';
+  useEffect(() => {
+    if(props.isOpen) {
+      setCardPlaceName('');
+      setCardPlaceLink('');
+    }
   }, [ props.isOpen ]);
-  
+
+  // внесение данных о название картинки
+  const handleChangeCardPlaceName = (evt) => {
+    setCardPlaceName(evt.target.value);
+  }
+  // внесение данных о ссылки на картинку
+  const handleChangeCardPlaceLink = (evt) => {
+    setCardPlaceLink(evt.target.value);
+  }
   // сабмит данных карточки
   const handleSubmit = (evt) => {
     evt.preventDefault();
     props.onAddPlace({ 
-      name: cardName.current.value, 
-      link: cardLink.current.value,
-    });
+      name: cardPlaceName,
+      link: cardPlaceLink,
+    })
   }
 
 
   return (
-    <PopupWithForm
+    <EditPopupWithForm
       isOpen={ props.isOpen }
       onClose={ props.onClose }
       onSubmit={ handleSubmit }
@@ -35,7 +44,8 @@ function PopupCardAdd(props) {
       name='contentNewCardForm'
       buttonText='Создать' >
         <input 
-          ref={ cardName }
+          value={ cardPlaceName }
+          onChange={ handleChangeCardPlaceName }
           id='popup__photo-name'
           type='text'
           name='photoName'
@@ -51,7 +61,8 @@ function PopupCardAdd(props) {
           className='popup__error-message'>
         </span>
         <input
-          ref={ cardLink }
+          value={ cardPlaceLink }
+          onChange={ handleChangeCardPlaceLink }
           id='popup__photo-link'
           type='url'
           name='link'
@@ -64,9 +75,9 @@ function PopupCardAdd(props) {
           id='error-popup__photo-link'
           className='popup__error-message'>
         </span>
-      </PopupWithForm>
+      </EditPopupWithForm>
   )
 }
 
 // экспорт
-export default PopupCardAdd
+export default AddPopupCard
