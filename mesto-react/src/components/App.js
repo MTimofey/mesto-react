@@ -33,23 +33,23 @@ function App() {
   }, [])
 
   // обработчик открытия попапа редактирования аватарки
-  const handlePopupAvatarEditClick = () => {
+  const handleEditClickPopupAvatar = () => {
     setIsEditOpenPopupAvatar(true);
   }
   // обработчик открытия попапа добавления карточки
-  const handlePopupCardAddClick = () => {
+  const handleAddClickPopupCard = () => {
     setIsAddOpenPopupCard(true);
   }
   // оAvatarбработчик открытия попапа редактирования профиля
-  const handlePopupUsernameEditClick = () => {
+  const handleEditClickPopupUsername = () => {
     setIsEditOpenPopupUsername(true);
   }
-  const handleDeleteClick = () => {
+  const handleDeleteClickPopup = () => {
     setIsDeletePopup(true);
   }
 
   // обработчки зума фотографии 
-  const handleCardClick = (zoomCards) => {
+  const handleClickCard = (zoomCards) => {
     setIsOpenPopupImageFull(true);
     setSelectedCard({
       ...selectedCard,
@@ -103,7 +103,7 @@ function App() {
   }
 
   // функция удаления попапа с карточкой 
-  const handlePopupDeleteClick = (deleteCard) => {
+  const handleDeleteClickCardPopup = (deleteCard) => {
      api.deleteCard(deleteCard._id)
     .then(() => { 
       setCards((cards)=> cards.filter((cardItem) => cardItem._id !== deleteCard._id))
@@ -130,13 +130,13 @@ function App() {
       < div className='root'>
         < Header />
         < Main
-          onEditAvatar={ handlePopupAvatarEditClick }
-          onEditProfile={ handlePopupUsernameEditClick }
-          onAddPlace={ handlePopupCardAddClick }
-          onCardClick={ handleCardClick }
-          onCardDelete={ handlePopupDeleteClick }
+          onEditAvatar={ handleEditClickPopupAvatar }
+          onEditProfile={ handleEditClickPopupUsername }
+          onAddPlace={ handleAddClickPopupCard }
+          onCardClick={ handleClickCard }
+          onCardDelete={ handleDeleteClickCardPopup }
           onCardLike={ handleLikeCard }
-          onDeleteClick={ handleDeleteClick }
+          onDeleteClick={ handleDeleteClickPopup }
           cards={ cards }
         />
         < Footer />
