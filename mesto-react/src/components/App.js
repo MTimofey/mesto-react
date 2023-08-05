@@ -3,21 +3,21 @@ import React, { useState, useEffect } from 'react';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
-import PopupAvatarEdit from './PopupAvatarEdit';
-import PopupCardAdd from './PopupCardAdd';
-import PopupImageFull from './PopupImageFull';
-import PopupUsernameEdit from './PopupUsernameEdit';
-import PopupWithForm from './PopupWithForm';
+import EditPopupAvatar from './EditPopupAvatar';
+import AddPopupCard from './AddPopupCard';
+import EditPopupImageFull from './EditPopupImageFull';
+import EditPopupUsername from './EditPopupUsername';
+import EditPopupWithForm from './EditPopupWithForm';
 import CurrentUserContext from '../contexts/CurrentUserContext';
 import api from '../utils/Api';
 
 // функция сбора всех фрагментов кода в общую 
 function App() {
-  const [ isPopupAvatarEditOpen, setIsPopupAvatarEditOpen ] = useState(false);
-  const [ isPopupCardAddOpen, setIsPopupCardAddOpen ] = useState(false);
-  const [ isPopupImageFullOpen, setIsPopupImageFullOpen ] = useState(false);
-  const [ isPopupUsernameEditOpen, setIsPopupUsernameEditOpen ] = useState(false);
-  const [ isPopupDeleteOpen, setIsPopupDeleteOpen ] = useState(false);
+  const [ isEditOptnPopupAvatar, setIsEditOpenPopupAvatar ] = useState(false);
+  const [ isAddOpenPopupCard, setIsAddOpenPopupCard ] = useState(false);
+  const [ isOpenPopupImageFull, setIsOpenPopupImageFull ] = useState(false);
+  const [ isEditOpenPopupUsername, setIsEditOpenPopupUsername ] = useState(false);
+  const [ isDeletePopup, setIsDeletePopup ] = useState(false);
   const [ selectedCard, setSelectedCard ] = useState({});
   const [ cards, setCards ] = useState([]);
   const [ currentUser, setCurrentUser] = useState({});
@@ -34,23 +34,23 @@ function App() {
 
   // обработчик открытия попапа редактирования аватарки
   const handlePopupAvatarEditClick = () => {
-    setIsPopupAvatarEditOpen(true);
+    setIsEditOpenPopupAvatar(true);
   }
   // обработчик открытия попапа добавления карточки
   const handlePopupCardAddClick = () => {
-    setIsPopupCardAddOpen(true);
+    setIsAddOpenPopupCard(true);
   }
   // оAvatarбработчик открытия попапа редактирования профиля
   const handlePopupUsernameEditClick = () => {
-    setIsPopupUsernameEditOpen(true);
+    setIsEditOpenPopupUsername(true);
   }
   const handleDeleteClick = () => {
-    setIsPopupDeleteOpen(true);
+    setIsDeletePopup(true);
   }
 
   // обработчки зума фотографии 
   const handleCardClick = (zoomCards) => {
-    setIsPopupImageFullOpen(true);
+    setIsOpenPopupImageFull(true);
     setSelectedCard({
       ...selectedCard,
       name: zoomCards.name,
@@ -60,10 +60,10 @@ function App() {
 
   // общая функция закрытия всех попапов
   const closeAllPopups = () => {
-    setIsPopupUsernameEditOpen(false);
-    setIsPopupCardAddOpen(false);
-    setIsPopupAvatarEditOpen(false);
-    setIsPopupImageFullOpen(false);
+    setIsEditOpenPopupUsername(false);
+    setIsAddOpenPopupCard(false);
+    setIsEditOpenPopupAvatar(false);
+    setIsOpenPopupImageFull(false);
   }
 
   // функция изменения аватарки
@@ -80,7 +80,7 @@ function App() {
 
   // функция добавления новых карточек
   const handleAddNewCard = (newCard) => {
-    api.addNewCard(newCard)
+    api.addNewCard(newCard.name, newCard.link)
     .then((card) => {
       setCards([ card, ...cards ]);
       closeAllPopups();
@@ -140,27 +140,27 @@ function App() {
           cards={ cards }
         />
         < Footer />
-        < PopupAvatarEdit
-          isOpen={ isPopupAvatarEditOpen }
+        < EditPopupAvatar
+          isOpen={ isEditOptnPopupAvatar }
           onClose={ closeAllPopups } 
           onUpdateAvatar={ handleUpdateAvatar }
         />
-        < PopupCardAdd 
-          isOpen={ isPopupCardAddOpen }
+        < AddPopupCard 
+          isOpen={ isAddOpenPopupCard }
           onClose={ closeAllPopups }
           onAddPlace={ handleAddNewCard }
         />
-        < PopupImageFull
-          isOpen={ isPopupImageFullOpen }
+        < EditPopupImageFull
+          isOpen={ isOpenPopupImageFull }
           onClose={ closeAllPopups }
           card={ selectedCard } />
-        < PopupUsernameEdit 
-          isOpen={ isPopupUsernameEditOpen }
+        < EditPopupUsername 
+          isOpen={ isEditOpenPopupUsername }
           onClose={ closeAllPopups }
           onUpdateUser={ handleUpdateUser }
         />
-        < PopupWithForm 
-          isOpen={ isPopupDeleteOpen }
+        < EditPopupWithForm 
+          isOpen={ isDeletePopup }
           onClose={ closeAllPopups }
           styleClass='delete-card'
           title='Вы уверены?'

@@ -1,6 +1,6 @@
 // импорт
 import React, { useContext, useState, useEffect } from 'react';
-import PopupWithForm from './PopupWithForm';
+import EditPopupWithForm from './EditPopupWithForm';
 import CurrentUserContext from '../contexts/CurrentUserContext';
 
 // функция попапа редактирования профиля
@@ -37,7 +37,7 @@ function PopupUserNameEdit(props) {
   }
 
   return (
-    <PopupWithForm
+    <EditPopupWithForm
       isOpen={ props.isOpen } 
       onClose={ props.onClose }
       onSubmit={ handleSubmit }
@@ -79,7 +79,7 @@ function PopupUserNameEdit(props) {
           id='error-popup__user-position'
           className='popup__error-message'>
         </span>
-    </PopupWithForm>
+    </EditPopupWithForm>
   )
 }
 

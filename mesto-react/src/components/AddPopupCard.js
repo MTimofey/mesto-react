@@ -1,35 +1,26 @@
 // импорт
-import React, { useEffect, useState } from 'react';
-import PopupWithForm from './PopupWithForm';
+import React, { useEffect, useRef } from 'react';
+import PopupWithForm from './EditPopupWithForm';
 
 // функция попапа добавления карточки
 function PopupCardAdd(props) {
-  const [ cardPlaceName, setCardPlaceName ] = useState('');
-  const [ cardPlaceLink, setCardPlaceLink ] = useState('');
+
+  const cardName = useRef();
+  const cardLink = useRef();
 
   // эффект для очистки полей
-  useEffect(() => {
-    if(props.isOpen) {
-      setCardPlaceName('');
-      setCardPlaceLink('');
-    }
+  useEffect( () => {
+    cardName.current.value = '';
+    cardLink.current.value = '';
   }, [ props.isOpen ]);
-
-  // внесение данных о название картинки
-  const handleChangeCardPlaceName = (evt) => {
-    setCardPlaceName(evt.target.value);
-  }
-  // внесение данных о ссылки на картинку
-  const handleChangeCardPlaceLink = (evt) => {
-    setCardPlaceLink(evt.target.value);
-  }
+  
   // сабмит данных карточки
   const handleSubmit = (evt) => {
     evt.preventDefault();
     props.onAddPlace({ 
-      name: cardPlaceName,
-      link: cardPlaceLink,
-    })
+      name: cardName.current.value, 
+      link: cardLink.current.value,
+    });
   }
 
 
@@ -44,8 +35,7 @@ function PopupCardAdd(props) {
       name='contentNewCardForm'
       buttonText='Создать' >
         <input 
-          value={ cardPlaceName }
-          onChange={ handleChangeCardPlaceName }
+          ref={ cardName }
           id='popup__photo-name'
           type='text'
           name='photoName'
@@ -61,8 +51,7 @@ function PopupCardAdd(props) {
           className='popup__error-message'>
         </span>
         <input
-          value={ cardPlaceLink }
-          onChange={ handleChangeCardPlaceLink }
+          ref={ cardLink }
           id='popup__photo-link'
           type='url'
           name='link'
