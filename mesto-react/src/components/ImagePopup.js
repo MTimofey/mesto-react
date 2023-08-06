@@ -2,7 +2,7 @@
 import React from 'react';
 
 // функция попапа зума фотографии
-function PopupImageFull(props) {
+function ImagePopup(props) {
   return (
     <div className={` popup popup_full-img ${ props.isOpen ? 'popup__opened_dark' : '' }`} id={ props.id }>
       <div className='popup__container popup__container_full-img'>
@@ -23,4 +23,4 @@ function PopupImageFull(props) {
 }
 
 // экспорт
-export default PopupImageFull
+export default ImagePopup

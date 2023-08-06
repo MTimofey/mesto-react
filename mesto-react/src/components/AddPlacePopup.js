@@ -1,9 +1,9 @@
 // импорт
 import React, { useEffect, useState } from 'react';
-import EditPopupWithForm from './EditPopupWithForm';
+import PopupWithForm from './PopupWithForm';
 
 // функция попапа добавления карточки
-function AddPopupCard(props) {
+function AddPlacePopup(props) {
   const [ cardPlaceName, setCardPlaceName ] = useState('');
   const [ cardPlaceLink, setCardPlaceLink ] = useState('');
 
@@ -34,7 +34,7 @@ function AddPopupCard(props) {
 
 
   return (
-    <EditPopupWithForm
+    <PopupWithForm
       isOpen={ props.isOpen }
       onClose={ props.onClose }
       onSubmit={ handleSubmit }
@@ -75,9 +75,9 @@ function AddPopupCard(props) {
           id='error-popup__photo-link'
           className='popup__error-message'>
         </span>
-      </EditPopupWithForm>
+      </PopupWithForm>
   )
 }
 
 // экспорт
-export default AddPopupCard
+export default AddPlacePopup

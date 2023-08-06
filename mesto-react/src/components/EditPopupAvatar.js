@@ -1,6 +1,6 @@
 // импорт
 import React, { useEffect, useRef } from 'react';
-import EditPopupWithForm from './EditPopupWithForm';
+import PopupWithForm from './PopupWithForm';
 
 // функция попапа редактирования аватарки
 function PopupAvatarEdit(props) {
@@ -21,7 +21,7 @@ function PopupAvatarEdit(props) {
   }
 
   return (
-    <EditPopupWithForm
+    <PopupWithForm
       isOpen={ props.isOpen }
       onClose={ props.onClose }
       onSubmit={ handleSubmit }
@@ -43,7 +43,7 @@ function PopupAvatarEdit(props) {
         id='error-popup__avatar-picture'
         className='popup__error-message'>
       </span>
-    </EditPopupWithForm>
+    </PopupWithForm>
   )
 }
 

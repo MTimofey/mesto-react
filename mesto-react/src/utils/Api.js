@@ -9,7 +9,7 @@ class Api {
   }
 
   // Метод обработки ответа сервера 
-  _serverResponse(res) {
+  _checkResponse(res) {
     if (res.ok) {
       return res.json();
     } else {
@@ -23,7 +23,7 @@ class Api {
       headers: this._headers,
     })
       .then((res) => {
-      return this._serverResponse(res);
+      return this._checkResponse(res);
     });
   }
 
@@ -33,7 +33,7 @@ class Api {
       headers: this._headers,
     })
       .then((res) => {
-      return this._serverResponse(res);
+      return this._checkResponse(res);
     });
   }
 
@@ -48,7 +48,7 @@ class Api {
       }),
     })
     .then((res) => {
-      return this._serverResponse(res);
+      return this._checkResponse(res);
     });
   }
 
@@ -64,7 +64,7 @@ class Api {
       }),
     })
     .then((res) => {
-      return this._serverResponse(res);
+      return this._checkResponse(res);
     });
   }
   
@@ -74,7 +74,7 @@ class Api {
       method: "DELETE",
       headers: this._headers,
     }).then((res) => {
-      return this._serverResponse(res);
+      return this._checkResponse(res);
     });
   }
 
@@ -85,14 +85,14 @@ class Api {
         method: "PUT",
         headers: this._headers,
       }).then((res) => {
-        return this._serverResponse(res);
+        return this._checkResponse(res);
       });
     } else {
       return fetch(`${this._link}/cards/${cardId}/likes`, {
         method: "DELETE",
         headers: this._headers,
       }).then((res) => {
-        return this._serverResponse(res);
+        return this._checkResponse(res);
       });
     }
   }
@@ -104,7 +104,7 @@ class Api {
       headers: this._headers,
       body: JSON.stringify({avatar: avatarLink.avatar}),
     }).then((res) => {
-      return this._serverResponse(res);
+      return this._checkResponse(res);
     });
   }
 }

@@ -1,10 +1,10 @@
 // импорт
 import React, { useContext, useState, useEffect } from 'react';
-import EditPopupWithForm from './EditPopupWithForm';
+import PopupWithForm from './PopupWithForm';
 import CurrentUserContext from '../contexts/CurrentUserContext';
 
 // функция попапа редактирования профиля
-function PopupUserNameEdit(props) {
+function EditProfilePopup(props) {
 
   // константы с наполнением данных о пользователях и подписки
   const userItem = useContext(CurrentUserContext);
@@ -37,7 +37,7 @@ function PopupUserNameEdit(props) {
   }
 
   return (
-    <EditPopupWithForm
+    <PopupWithForm
       isOpen={ props.isOpen } 
       onClose={ props.onClose }
       onSubmit={ handleSubmit }
@@ -79,9 +79,9 @@ function PopupUserNameEdit(props) {
           id='error-popup__user-position'
           className='popup__error-message'>
         </span>
-    </EditPopupWithForm>
+    </PopupWithForm>
   )
 }
 
 // экспорт
-export default PopupUserNameEdit
+export default EditProfilePopup
