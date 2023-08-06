@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from 'react';
 import PopupWithForm from './PopupWithForm';
 
 // функция попапа редактирования аватарки
-function PopupAvatarEdit(props) {
+function EditAvatarPopup(props) {
 
   const avatarPhoto = useRef();
 
@@ -48,4 +48,4 @@ function PopupAvatarEdit(props) {
 }
 
 // экспорт
-export default PopupAvatarEdit;
+export default EditAvatarPopup;
